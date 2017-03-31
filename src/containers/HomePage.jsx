@@ -1,18 +1,24 @@
 import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+
 import TextField from 'material-ui/TextField';
 import 'whatwg-fetch';
 import ClassList from '../components/classes/ClassList';
 import RequestBuilder from '../helpers/RequestBuilder';
 
+import TopToolbar from '../components/structure/navbar/TopToolbar';
+
 export default class HomePage extends Component {
     constructor() {
         super();
         this.state = {
-            classes: []
-        }
+            classes: [],
+            activeClass: null
+        };
+        this.getClasses();
     }
+
     componentWillMount() {
 
         let requestBuilder = new RequestBuilder('test-api', 'POST');
@@ -26,10 +32,19 @@ export default class HomePage extends Component {
             })
     }
 
+    renderPage = () => {
+        if(this.state.activeClass == null) {
+            return this.renderClasses();
+        }
+        else {
+            return this.renderClassPage();
+        }
+    };
+
     renderClasses = () => {
         return <ClassList
-                classes={this.state.classes}
-            />
+            classes={this.state.classes}
+        />
     };
 
     getClasses = () => {
@@ -50,7 +65,11 @@ export default class HomePage extends Component {
     render() {
         return (
             <div>
+                <MuiThemeProvider>
+                    <TopToolbar/>
+                </MuiThemeProvider>
                 <h1>Home Page</h1>
+                {this.renderPage()}
                 <MuiThemeProvider>
                     <RaisedButton
                         label="Logout"
@@ -59,14 +78,7 @@ export default class HomePage extends Component {
                         onTouchTap={null}
                     />
                 </MuiThemeProvider>
-                <MuiThemeProvider>
-                    <RaisedButton
-                        label="Display Classes"
-                        primary={true}
-                        onClick={this.getClasses}
-                    />
-                </MuiThemeProvider>
-                <ul>{this.renderClasses()}</ul>
+
 
             </div>
         )

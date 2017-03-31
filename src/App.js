@@ -4,13 +4,6 @@ import './App.css';
 import LoginPage from './containers/LoginPage';
 import HomePage from './containers/HomePage';
 import RequestBuilder from './helpers/RequestBuilder';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    Redirect,
-    withRouter
-} from 'react-router-dom'
 
 class App extends Component {
     constructor() {
@@ -29,7 +22,6 @@ class App extends Component {
                 verified: false
             };
         }
-
     }
 
     handleLogin = (user, password) => {
@@ -107,12 +99,11 @@ class App extends Component {
     }
 
     render() {
+
         return (
-            <Router>
-                <div className="App">
-                    {this.checkLogin()}
-                </div>
-            </Router>
+            <div className="App">
+                {this.checkLogin()}
+            </div>
         );
     }
 }

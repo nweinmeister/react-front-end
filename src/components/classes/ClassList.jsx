@@ -8,6 +8,7 @@ export default class ClassList extends Component {
             <ClassSection
                 key={classSection.crnId}
                 name={classSection.name}
+                semester={classSection.semester}
             />
         )
     };
@@ -15,9 +16,7 @@ export default class ClassList extends Component {
     render() {
         return(
             <div>
-                <ul>
-                    {this.renderClasses()}
-                </ul>
+                {this.renderClasses()}
             </div>
         )
     }

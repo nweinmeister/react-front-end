@@ -13,9 +13,9 @@ const style = {
 };
 
 export default class ClassSection extends Component {
-    handleClick = () => {
-        alert('here');
-    };
+    handleSelect = () => {
+        this.props.handleSelect(this.props.obj)
+    }
     render() {
         return(
             <MuiThemeProvider>
@@ -29,7 +29,7 @@ export default class ClassSection extends Component {
                     <CardMedia>
                         <img src="http://lorempixel.com/600/337/nature/" />
                     </CardMedia>
-                    <CardTitle onClick={this.handleClick} title={<FlatButton>{this.props.name}</FlatButton>} subtitle={this.props.semester.semester}>
+                    <CardTitle value="test" onClick={this.handleSelect} title={<FlatButton>{this.props.name}</FlatButton>} subtitle={this.props.semester.semester}>
                     </CardTitle>
                 </Card>
             </MuiThemeProvider>

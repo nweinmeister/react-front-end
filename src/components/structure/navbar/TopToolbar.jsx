@@ -16,7 +16,7 @@ export default class TopToolbar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 3,
+            value: 1,
         };
     }
 
@@ -28,20 +28,14 @@ export default class TopToolbar extends React.Component {
             <Toolbar>
                 <ToolbarGroup firstChild={true}>
                     <DropDownMenu value={this.state.value} onChange={this.handleChange}>
-                        <MenuItem value={1} primaryText="All Broadcasts" />
-                        <MenuItem value={2} primaryText="All Voice" />
-                        <MenuItem value={3} primaryText="All Text" />
-                        <MenuItem value={4} primaryText="Complete Voice" />
-                        <MenuItem value={5} primaryText="Complete Text" />
-                        <MenuItem value={6} primaryText="Active Voice" />
-                        <MenuItem value={7} primaryText="Active Text" />
+                        <MenuItem value={1} primaryText="Home" />
                     </DropDownMenu>
                 </ToolbarGroup>
                 <ToolbarGroup>
-                    <ToolbarTitle text="Options" />
+                    <ToolbarTitle text={(this.props.activeClass !== null) ? this.props.activeClass.name : ""} />
                     <FontIcon className="muidocs-icon-custom-sort" />
                     <ToolbarSeparator />
-                    <RaisedButton label="Create Broadcast" primary={true} />
+                    <RaisedButton onClick={this.props.clearActiveClass} label="Go Home" primary={true} />
                     <IconMenu
                         iconButtonElement={
                             <IconButton touch={true}>
@@ -49,7 +43,7 @@ export default class TopToolbar extends React.Component {
                             </IconButton>
                         }
                     >
-                        <MenuItem primaryText="Download" />
+                        <MenuItem onClick={this.props.handleLogout} primaryText="Logout" />
                         <MenuItem primaryText="More Info" />
                     </IconMenu>
                 </ToolbarGroup>

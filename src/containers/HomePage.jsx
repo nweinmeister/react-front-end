@@ -5,22 +5,24 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import 'whatwg-fetch';
 import ClassList from '../components/classes/ClassList';
+import ClassPage from './ClassPage';
 import RequestBuilder from '../helpers/RequestBuilder';
 
 import TopToolbar from '../components/structure/navbar/TopToolbar';
+import SideDrawer from '../components/structure/navbar/SideDrawer';
 
 export default class HomePage extends Component {
     constructor() {
         super();
         this.state = {
             classes: [],
-            activeClass: null
+            activeClass: null,
+            sideDrawerOpen: false
         };
         this.getClasses();
     }
 
     componentWillMount() {
-
         let requestBuilder = new RequestBuilder('test-api', 'POST');
 
         fetch(requestBuilder.getFullPathWithToken(), requestBuilder.getRequestData())
@@ -41,10 +43,45 @@ export default class HomePage extends Component {
         }
     };
 
-    renderClasses = () => {
-        return <ClassList
-            classes={this.state.classes}
+    renderClassPage = () => {
+        return <ClassPage
+            classObj={this.state.activeClass}
+            clearActiveClass={this.clearActiveClass}
         />
+    };
+
+    renderClasses = () => {
+        return(
+            <div>
+                <MuiThemeProvider>
+                    <TopToolbar
+                        activeClass={this.state.activeClass}
+                        clearActiveClass={this.clearActiveClass}
+                        handleLogout={this.props.handleLogout}
+                    />
+                </MuiThemeProvider>
+                <ClassList
+                    classes={this.state.classes}
+                    handleSelect={this.setActiveClass}
+                />
+            </div>
+        )};
+
+    setActiveClass = (classObj) => {
+        console.log(classObj);
+        this.setState({
+            activeClass: classObj
+        })
+    };
+
+    clearActiveClass = () => {
+        this.setState({
+            activeClass: null
+        })
+    };
+
+    toggleSideDrawer = () => {
+        this.setState({sideDrawerOpen: this.state.sideDrawerOpen !== true});
     };
 
     getClasses = () => {
@@ -62,24 +99,12 @@ export default class HomePage extends Component {
             });
     };
 
+
     render() {
         return (
             <div>
-                <MuiThemeProvider>
-                    <TopToolbar/>
-                </MuiThemeProvider>
-                <h1>Home Page</h1>
+                <SideDrawer open={this.state.sideDrawerOpen}/>
                 {this.renderPage()}
-                <MuiThemeProvider>
-                    <RaisedButton
-                        label="Logout"
-                        primary={true}
-                        onClick={this.props.handleLogout}
-                        onTouchTap={null}
-                    />
-                </MuiThemeProvider>
-
-
             </div>
         )
     }

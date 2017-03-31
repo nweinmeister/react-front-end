@@ -7,8 +7,10 @@ export default class ClassList extends Component {
         return this.props.classes.map((classSection) =>
             <ClassSection
                 key={classSection.crnId}
+                obj={classSection}
                 name={classSection.name}
                 semester={classSection.semester}
+                handleSelect={this.props.handleSelect}
             />
         )
     };

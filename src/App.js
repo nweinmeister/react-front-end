@@ -73,9 +73,10 @@ class App extends Component {
                 this.setState({
                     verified: response
                 })
+                if(!response) {
+                    localStorage.clear();
+                }
             });
-
-
     }
 
     checkLogin() {

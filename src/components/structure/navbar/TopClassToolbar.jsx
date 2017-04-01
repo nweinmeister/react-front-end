@@ -37,9 +37,10 @@ export default class TopClassToolbar extends React.Component {
 
     handleChange = (event, index, value) => this.setState({value});
 
-    handleActive = () => {
-        alert('active');
-    }
+
+    handleActive = (e) => {
+        this.props.setActiveTab(e.props.value);
+    };
 
     render() {
         return (
@@ -51,7 +52,7 @@ export default class TopClassToolbar extends React.Component {
                         </DropDownMenu>
                     </ToolbarGroup>
                     <ToolbarGroup>
-                        <ToolbarTitle text="Here"/>
+                        <ToolbarTitle text={this.props.classObj.name}/>
                         <FontIcon className="muidocs-icon-custom-sort"/>
                         <ToolbarSeparator />
                         <RaisedButton label="Go Home" primary={true}/>
@@ -68,10 +69,10 @@ export default class TopClassToolbar extends React.Component {
                     </ToolbarGroup>
                 </Toolbar>
                 <Tabs>
-                    <Tab label="Item One">
-                        <div>
-
-                        </div>
+                    <Tab label="SLMs"
+                         value="SLMs"
+                         onActive={this.handleActive}
+                    >
                     </Tab>
                     <Tab label="Item Two">
                         <div>

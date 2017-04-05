@@ -53,7 +53,7 @@ export default class SlmTable extends Component {
                         <TableHeaderColumn>Status</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
-                <TableBody>
+                <TableBody deselectOnClickaway={false}>
                     {this.renderSlmRows()}
                 </TableBody>
             </Table>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import SlmTable from '../components/slms/SlmTable';
-import SlmDataForm from '../components/slmdata/SlmDataForm';
+import SlmInput from './slms/SlmInput';
 
 export default class SlmPage extends Component {
     constructor(props) {
@@ -13,12 +13,25 @@ export default class SlmPage extends Component {
 
     renderPage = () => {
         return(
+            <div>
             <SlmTable
                 slms={this.props.slms}
                 activeSlm={this.state.activeSlm}
                 setActiveSlm={this.props.setActiveSlm}
                 />
+                {this.renderSlmData()}
+            </div>
         )
+    };
+
+
+    renderSlmData = () => {
+        if(this.props.activeSlm) {
+            return <SlmInput slmObject={this.props.activeSlm}/>
+        }
+        else {
+            return null;
+        }
     };
 
     render() {

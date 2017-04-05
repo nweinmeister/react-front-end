@@ -27,6 +27,7 @@ const styles = {
     },
 };
 
+
 export default class TopClassToolbar extends React.Component {
     constructor(props) {
         super(props);
@@ -74,14 +75,18 @@ export default class TopClassToolbar extends React.Component {
                          onActive={this.handleActive}
                     >
                     </Tab>
-                    <Tab label="Item Two">
+                    <Tab
+                        label="Grades"
+                        value="Grades"
+                        onActive={this.handleActive}
+                    >
                         <div>
 
                         </div>
                     </Tab>
                     <Tab
-                        label="onActive"
-                        route="/home"
+                        label="Class Info"
+                        value="Class Info"
                         onActive={this.handleActive}
                     >
                         <div>

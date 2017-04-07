@@ -12,12 +12,24 @@ export default class LoginPage extends Component {
             password: ''
         }
     };
+    componentWillMount = () => {
+        document.addEventListener("keydown", this.handleEnterKey, false);
+    };
+
+    handleEnterKey = (e) => {
+        if(e.keyCode == 13) {
+            this.handleLogin();
+        }
+    };
+
     handleLogin = () => {
         this.props.handleLogin(this.state.username, this.state.password);
     };
+
     handleUserFieldInput = (e) => {
         this.setState({username: e.target.value});
     };
+
     handlePasswordFieldInput = (e) => {
         this.setState({password: e.target.value});
     };

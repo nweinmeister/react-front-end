@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import SlmTable from '../components/slms/SlmTable';
 import SlmInput from './slms/SlmInput';
 
@@ -27,7 +29,7 @@ export default class SlmPage extends Component {
 
     renderSlmData = () => {
         if(this.props.activeSlm) {
-            return <SlmInput slmObject={this.props.activeSlm}/>
+            return <MuiThemeProvider><SlmInput slmObject={this.props.activeSlm}/></MuiThemeProvider>
         }
         else {
             return null;

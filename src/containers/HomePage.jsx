@@ -44,10 +44,21 @@ export default class HomePage extends Component {
     };
 
     renderClassPage = () => {
-        return <ClassPage
-            classObj={this.state.activeClass}
-            clearActiveClass={this.clearActiveClass}
-        />
+        return(
+            <div>
+                <MuiThemeProvider>
+                    <TopToolbar
+                        activeClass={this.state.activeClass}
+                        clearActiveClass={this.clearActiveClass}
+                        handleLogout={this.props.handleLogout}
+                    />
+                </MuiThemeProvider>
+                <ClassPage
+                    classObj={this.state.activeClass}
+                    clearActiveClass={this.clearActiveClass}
+                />
+            </div>
+            )
     };
 
     renderClasses = () => {

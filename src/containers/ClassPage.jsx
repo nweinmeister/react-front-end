@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+import {Tabs, Tab} from 'material-ui/Tabs';
 
 import 'whatwg-fetch';
 import RequestBuilder from '../helpers/RequestBuilder';
@@ -80,6 +81,7 @@ export default class ClassPage extends Component {
 
     };
 
+
     getGrades = () => {
         let body = {'crnId': this.state.classObj.crnId};
         let requestBuilder = new RequestBuilder('api/grades', 'POST', body);
@@ -95,25 +97,62 @@ export default class ClassPage extends Component {
             })
     };
 
+    // render() {
+    //     return(
+    //         <div>
+    //             <MuiThemeProvider>
+    //                 <TopClassToolbar
+    //                     setActiveTab={this.setActiveTab}
+    //                     classObj={this.props.classObj}/>
+    //             </MuiThemeProvider>
+    //
+    //             <MuiThemeProvider>
+    //                 {this.renderPage()}
+    //             </MuiThemeProvider>
+    //
+    //             <MuiThemeProvider>
+    //                 <RaisedButton onClick={this.props.clearActiveClass}>
+    //                     Back
+    //                 </RaisedButton>
+    //             </MuiThemeProvider>
+    //         </div>
+    //     )
+    // }
+
     render() {
-        return(
-            <div>
-                <MuiThemeProvider>
-                    <TopClassToolbar
-                        setActiveTab={this.setActiveTab}
-                        classObj={this.props.classObj}/>
-                </MuiThemeProvider>
-
-                <MuiThemeProvider>
-                    {this.renderPage()}
-                </MuiThemeProvider>
-
-                <MuiThemeProvider>
-                    <RaisedButton onClick={this.props.clearActiveClass}>
-                        Back
-                    </RaisedButton>
-                </MuiThemeProvider>
-            </div>
+        return (
+            <MuiThemeProvider>
+            <Tabs>
+                <Tab label="SLMs"
+                     value="SLMs"
+                >
+                    <SlmPage
+                        slms={this.state.slms}
+                        activeSlm={this.state.activeSlm}
+                        setActiveSlm={this.setActiveSlm}
+                    />
+                </Tab>
+                <Tab
+                    label="Grades"
+                    value="Grades"
+                >
+                    <GradePage
+                        classObj={this.props.classObj}
+                        grades={this.state.grades}
+                        refreshGrades={this.getGrades}
+                        />
+                </Tab>
+                <Tab
+                    label="Class Info"
+                    value="Class Info"
+                >
+                    <div>
+                        <h1>{this.state.classObj.name}</h1>
+                        <h3>{this.state.classObj.semester.semester}</h3>
+                    </div>
+                </Tab>
+            </Tabs>
+            </MuiThemeProvider>
         )
     }
 }

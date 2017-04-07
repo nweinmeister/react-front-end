@@ -23,7 +23,6 @@ export default class TopToolbar extends React.Component {
     handleChange = (event, index, value) => this.setState({value});
 
     render() {
-
         return (
             <Toolbar>
                 <ToolbarGroup firstChild={true}>
@@ -32,7 +31,9 @@ export default class TopToolbar extends React.Component {
                     </DropDownMenu>
                 </ToolbarGroup>
                 <ToolbarGroup>
-                    <ToolbarTitle text={(this.props.activeClass !== null) ? this.props.activeClass.name : ""} />
+                    <ToolbarTitle text={(this.props.activeClass !== null) ?
+                        this.props.activeClass.name + " -- " + this.props.activeClass.semester.semester:
+                        ""} />
                     <FontIcon className="muidocs-icon-custom-sort" />
                     <ToolbarSeparator />
                     <RaisedButton onClick={this.props.clearActiveClass} label="Go Home" primary={true} />

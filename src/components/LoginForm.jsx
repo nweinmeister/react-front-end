@@ -17,6 +17,7 @@ export default class LoginForm extends Component{
                 <div className="row">
                     <TextField
                         hintText="Password"
+                        type="password"
                         onChange={this.props.handlePasswordFieldInput}
                     />
                 </div>

@@ -20,7 +20,8 @@ export default class ClassPage extends Component {
             activeTab: "SLMs",
             slms: [],
             grades: [],
-            activeSlm: null
+            activeSlm: null,
+            activeGrade: null
         };
         this.getSlms();
         this.getGrades();
@@ -65,6 +66,10 @@ export default class ClassPage extends Component {
         this.setState({activeSlm: slm});
     };
 
+    setActiveGrade = (grade) => {
+        this.setState({activeGrade: grade})
+    };
+
     getSlms = () => {
         let body = {'crnId': this.state.classObj.crnId};
         let requestBuilder = new RequestBuilder('api/slms', 'POST', body);
@@ -97,28 +102,6 @@ export default class ClassPage extends Component {
             })
     };
 
-    // render() {
-    //     return(
-    //         <div>
-    //             <MuiThemeProvider>
-    //                 <TopClassToolbar
-    //                     setActiveTab={this.setActiveTab}
-    //                     classObj={this.props.classObj}/>
-    //             </MuiThemeProvider>
-    //
-    //             <MuiThemeProvider>
-    //                 {this.renderPage()}
-    //             </MuiThemeProvider>
-    //
-    //             <MuiThemeProvider>
-    //                 <RaisedButton onClick={this.props.clearActiveClass}>
-    //                     Back
-    //                 </RaisedButton>
-    //             </MuiThemeProvider>
-    //         </div>
-    //     )
-    // }
-
     render() {
         return (
             <MuiThemeProvider>
@@ -139,6 +122,8 @@ export default class ClassPage extends Component {
                     <GradePage
                         classObj={this.props.classObj}
                         grades={this.state.grades}
+                        activeGrade={this.state.activeGrade}
+                        setActiveGrade={this.setActiveGrade}
                         refreshGrades={this.getGrades}
                         />
                 </Tab>

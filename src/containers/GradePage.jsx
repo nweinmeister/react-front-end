@@ -3,28 +3,29 @@ import React, {Component} from 'react';
 
 import RequestBuilder from '../helpers/RequestBuilder';
 import GradeTable from '../components/grades/GradeTable';
+import GradeSheetInputForm from '../components/grades/GradeSheetInputForm';
 
-let options = {
-    baseUrl:'http://127.0.0.1',
+const divStyle = {
+    textAlign: 'center',
 };
 
 export default class GradePage extends Component {
     constructor() {
         super();
         this.state = {
+            activeGrade: null,
             gradesheetFile: null
         }
     };
 
     handleFileChange = (e) => {
-        console.log(e.target.files[0]);
-        let reader = new FileReader();
-        reader.onload = (readerEvt) => {
-            console.log(readerEvt.target.result);
-            this.setState({gradesheetFile: readerEvt.target.result})
-        };
-        reader.readAsDataURL(e.target.files[0]);
-
+        if(e.target.files[0]) {
+            let reader = new FileReader();
+            reader.onload = (readerEvt) => {
+                this.setState({gradesheetFile: readerEvt.target.result})
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        }
     };
 
     uploadGradeSheet = (e) => {
@@ -42,27 +43,42 @@ export default class GradePage extends Component {
             .then((response) => {
                 console.log(response);
                 this.props.refreshGrades();
+                this.setState({gradesheetFile: null});
             });
+    };
+
+    handleDelete = (e) => {
+        let body = {'gradeId': e.target.value};
+        let requestBuilder = new RequestBuilder('api/delete-grade', 'POST', body);
+        fetch(requestBuilder.getFullPathWithToken(), requestBuilder.getRequestData())
+            .then((response) => {
+                return response.json();
+            })
+            .then((response) => {
+                console.log(response);
+                this.props.refreshGrades();
+            });
+        this.setState({activeGrade: null})
     };
 
     renderPage = () => {
         return (
             <GradeTable
                 grades={this.props.grades}
+                activeGrade={this.state.activeGrade}
+                setActiveGrade={this.props.setActiveGrade}
+                handleDelete={this.handleDelete}
             />
         )
     };
     render() {
         return (
-            <div>
-            <form onSubmit={this.uploadGradeSheet} onChange={this.handleFileChange}>
-                <label>Upload File:</label>
-                <input
-                    type="file"
-                    name="input"
+            <div style={divStyle}>
+                <GradeSheetInputForm
+                    handleFileChange={this.handleFileChange}
+                    handleUpload={this.uploadGradeSheet}
                 />
-                <button type="submit">Upload</button>
-            </form>
+                <br />
                 {this.renderPage()}
             </div>
         )

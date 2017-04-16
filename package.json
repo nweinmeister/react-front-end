@@ -6,12 +6,9 @@
     "react-scripts": "0.8.5"
   },
   "dependencies": {
-    "excel-as-json": "^2.0.0",
     "material-ui": "^0.16.4",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-fileupload": "^2.4.0",
-    "react-router": "^4.0.0",
     "react-tap-event-plugin": "^*.*.*",
     "whatwg-fetch": "^2.0.2"
   },

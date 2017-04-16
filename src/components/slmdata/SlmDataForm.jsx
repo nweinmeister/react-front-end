@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 const cardStyle = {
     height: 400,
     width: 500,
-    margin: 20,
+    margin: 'auto',
     textAlign: 'center',
     display: 'inline-block',
 };
@@ -20,35 +20,40 @@ const style = {
 };
 
 export default class SlmDataForm extends Component {
-    handleSubmit = (e) => {
-        console.log(e.target.parent);
-    };
-
     render() {
+        console.log(this.props.slmdataObject);
         return (
-            <Paper style={cardStyle} zDepth={2}>
-                <TextField defaultValue={this.props.slmdataObject.excellent}
+            <div>
+                <TextField value={this.props.slmdataObject.excellent}
+                           name="excellent"
                            floatingLabelText="Excellent"
                            style={style}
-                           underlineShow={false}/>
+                           underlineShow={false}
+                            onChange={this.props.handleSlmdataChange}/>
                 <Divider />
-                <TextField defaultValue={this.props.slmdataObject.acceptable}
+                <TextField value={this.props.slmdataObject.acceptable}
+                           name="acceptable"
                            floatingLabelText="Acceptable"
                            style={style}
-                           underlineShow={false}/>
+                           underlineShow={false}
+                           onChange={this.props.handleSlmdataChange}/>
                 <Divider />
-                <TextField defaultValue={this.props.slmdataObject.unacceptable}
+                <TextField value={this.props.slmdataObject.unacceptable}
+                           name="unacceptable"
                            floatingLabelText="Unacceptable"
                            style={style}
-                           underlineShow={false}/>
+                           underlineShow={false}
+                           onChange={this.props.handleSlmdataChange}/>
                 <Divider />
-                <TextField defaultValue={this.props.slmdataObject.details}
+                <TextField value={this.props.slmdataObject.details}
+                           name="details"
                            floatingLabelText="Details"
                            style={style}
-                           underlineShow={false}/>
+                           underlineShow={false}
+                           onChange={this.props.handleSlmdataChange}/>
                 <Divider />
-                <RaisedButton label="Save" primary={true} onClick={this.handleSubmit}/>
-            </Paper>
+                <RaisedButton label="Save" primary={true} onClick={this.props.handleSlmdataSubmit}/>
+            </div>
         )
     }
 }

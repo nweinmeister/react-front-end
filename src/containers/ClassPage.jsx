@@ -6,6 +6,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 
 import 'whatwg-fetch';
 import RequestBuilder from '../helpers/RequestBuilder';
+import ManualSlmdataSubmission from '../helpers/requests/ManualSlmdataSubmission';
 
 import SlmPage from './SlmPage';
 import GradePage from './GradePage';
@@ -102,6 +103,16 @@ export default class ClassPage extends Component {
             })
     };
 
+    manualSubmitData = (slmdata) => {
+        let submission = new ManualSlmdataSubmission(slmdata, this.state.classObj.crnId, this.state.activeSlm.slmId);
+        submission.submit((callback) => {
+            let oldSlm = this.state.activeSlm;
+            oldSlm.complete = true;
+            this.setState({activeSlm: oldSlm});
+            console.log('next');
+        });
+    };
+
     render() {
         return (
             <MuiThemeProvider>
@@ -113,6 +124,7 @@ export default class ClassPage extends Component {
                         slms={this.state.slms}
                         activeSlm={this.state.activeSlm}
                         setActiveSlm={this.setActiveSlm}
+                        manualSubmitData={this.manualSubmitData}
                     />
                 </Tab>
                 <Tab

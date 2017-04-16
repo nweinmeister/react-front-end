@@ -35,7 +35,7 @@ export default class SlmTable extends Component {
                     {slm.details}
                 </TableRowColumn>
                 <TableRowColumn>
-                    {slm.slmdata ? "Complete" : "Incomplete"}
+                    {slm.complete ? "Complete" : "Incomplete"}
                 </TableRowColumn>
             </TableRow>
         )

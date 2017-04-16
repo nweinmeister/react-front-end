@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+let SERVER_PATH = "http://projectalpha.ddns.net/";
+
 export default class RequestBuilder {
     constructor(path, method, body = []) {
         this.path = path;
@@ -8,11 +10,11 @@ export default class RequestBuilder {
     }
 
     getFullPathWithToken() {
-        return 'http://localhost:8000/' + this.path + '?token={' + localStorage.getItem('token') + '}'
+        return SERVER_PATH + this.path + '?token={' + localStorage.getItem('token') + '}'
     }
 
     getFullPathWithoutToken() {
-        return 'http://localhost:8000/' + this.path;
+        return SERVER_PATH + this.path;
     }
 
     getRequestData() {

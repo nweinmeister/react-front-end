@@ -7,14 +7,25 @@ export default class GradeTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeGrade: props.activeGrade,
+            activeGrades: props.activeGrade,
         }
     };
 
-    setActiveGrade = (e) => {
-        this.setState({activeGrade: this.props.grades[e]});
-        this.props.setActiveGrade(this.props.grades[e]);
+    setActiveGrades = (e) => {
         console.log(e);
+        let grades = [];
+        if(e === "all") {
+            this.props.grades.forEach((grade) => {
+                grades.push(grade.id);
+            })
+        }
+        else if (e !== "none") {
+            e.forEach((index) => {
+                grades.push(this.props.grades[index].id);
+            });
+        }
+        this.setState({activeGrades: grades});
+        this.props.setActiveGrades(grades);
     };
 
     handleDelete = (e) => {
@@ -27,7 +38,7 @@ export default class GradeTable extends Component {
         if(this.props.grades) {
             return (
                 <div>
-                    <Table onRowSelection={this.setActiveGrade} multiSelectable={true} >
+                    <Table onRowSelection={this.setActiveGrades} multiSelectable={true} >
                         <TableHeader>
                             <TableRow>
                                 <TableHeaderColumn>Assignment Name</TableHeaderColumn>
@@ -72,7 +83,6 @@ export default class GradeTable extends Component {
                     <TableRowColumn value={grade.id}>
                         <button
                             className="RaisedButton"
-                            secondary={true}
                             value={grade.id}
                             onClick={this.handleDelete}>
                             Delete
